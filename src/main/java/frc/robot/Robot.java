@@ -9,6 +9,7 @@ import org.xero1425.misc.MessageType;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.DriveCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -17,9 +18,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends XeroRobot {
-  private Command m_autonomousCommand;
+  private Command drive_ ;
 
-  private RobotContainer m_robotContainer;
+  private RobotContainer container_;
 
   public Robot() {
     super("droid", 0.02) ;
@@ -38,7 +39,7 @@ public class Robot extends XeroRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     try {
-      m_robotContainer = new RobotContainer(this);
+      container_ = new RobotContainer(this);
     }
     catch(Exception ex) {
       //
@@ -47,6 +48,8 @@ public class Robot extends XeroRobot {
       ex.printStackTrace();
       getMessageLogger().startMessage(MessageType.Error).add("fatal error: cannot create robot hardware - ").add(ex.getMessage()).endMessage();
     }
+
+    drive_ = new DriveCommand(container_.getTankDrive()) ;
   }
 
   /**
@@ -79,12 +82,6 @@ public class Robot extends XeroRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
   }
 
   /** This function is called periodically during autonomous. */
@@ -93,13 +90,7 @@ public class Robot extends XeroRobot {
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
-    }
+    drive_.schedule();
   }
 
   /** This function is called periodically during operator control. */
@@ -115,7 +106,6 @@ public class Robot extends XeroRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
-    
   }
 
   /** This function is called once when the robot is first started up. */

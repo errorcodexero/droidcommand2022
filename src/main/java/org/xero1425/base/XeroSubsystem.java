@@ -1,6 +1,7 @@
 package org.xero1425.base;
 
 import org.xero1425.base.motors.MotorFactory;
+import org.xero1425.misc.ISettingsSupplier;
 import org.xero1425.misc.MessageLogger;
 import org.xero1425.misc.MissingParameterException;
 import org.xero1425.misc.SettingsValue;
@@ -32,6 +33,10 @@ public class XeroSubsystem extends SubsystemBase {
 
     public MotorFactory getMotorFactory() {
         return robot_.getMotorFactory() ;
+    }
+
+    public ISettingsSupplier getSettingsSupplier() {
+        return robot_.getSettingsSupplier() ;
     }
     
     public SettingsValue getSetting(String name) throws MissingParameterException {

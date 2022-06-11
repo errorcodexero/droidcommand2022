@@ -23,6 +23,20 @@
             "climber": false
         }
     },
+    "oi" : {
+        "driver" : {
+            "speed" : {
+                "device" : 0,
+                "index" : 1
+            },
+            "rotate" : {
+                "device" : 0,
+                "index" : 4
+            }
+        },
+        "gunner" : {
+        }
+    },
     "subsystems" : {
         "tankdrive" : {
             "hw": {
